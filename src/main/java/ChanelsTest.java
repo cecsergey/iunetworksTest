@@ -10,6 +10,7 @@ import java.util.Arrays;
  */
 public class ChanelsTest {
     private static String temp,temp2;
+    private static String[] publicChannels;
     private static String[] channels  = {"1TV", "Հ2", "Շանթ", "Արմենիա TV", "Կենտրոն", "Արարատ",
                                             "Երկիր Մեդիա", "ATV", "ԱՐ", "21 TV", "ԱրմՆյուզ",
                                         "Հ3", "Շողակաթ", "Россия 1", "Первый канал", "РТР Планетa",
@@ -99,16 +100,14 @@ public class ChanelsTest {
 
         //Get list of public channels from site
         temp2 = driver.findElement(By.xpath("//*[@id=\"channelList\"]/div[2]/div[1]")).getText();
-        String[] publicChannels = temp2.split("\n");
+        if(temp2!=" " && temp2!=null){
+        publicChannels = temp2.split("\n");
+        }
 
 
         //Compare web page channels list with existing channels list
         for(int i=0;i<channels.length;i++){
-            if(Arrays.asList(publicChannels).contains(channels[i])){
-
-            }else{
-                System.out.println("The public channels page doesn't contain  "+ channels[i]+" channel");
-            }
+            contains(publicChannels,channels[i]);
         }
 
         driver.close();
@@ -120,7 +119,7 @@ public class ChanelsTest {
         if(Arrays.asList(channelsArray).contains(channel)){
             //System.out.println("The channel "+ channel+" exist");
         }else{
-            System.out.println("The channel "+ channel+" doesn't exist");
+            System.out.println("The public channels page doesn't contain  "+ channel+" channel");
         }
 
     }
